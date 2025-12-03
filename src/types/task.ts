@@ -1,7 +1,5 @@
 export type TaskFilter = 'all' | 'active' | 'completed'
 
-export type UserTaskFilter = 'all' | 'active'
-
 export interface Task {
   id: number
   title: string

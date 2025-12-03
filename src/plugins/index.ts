@@ -6,10 +6,12 @@
 
 // Plugins
 import vuetify from './vuetify'
+import pinia from './pinia'
 
 // Types
 import type { App } from 'vue'
 
 export function registerPlugins (app: App) {
+  app.use(pinia)
   app.use(vuetify)
 }

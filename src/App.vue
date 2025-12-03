@@ -10,7 +10,6 @@ import {
 } from '@/components'
 
 const {
-  tasks,
   newTaskTitle,
   currentFilter,
   pendingDeletions,

@@ -1,8 +1,4 @@
-import type { TaskFilter, TaskFilterConfig, UserTaskFilter } from '@/types'
-
-export const TASK_FILTERS: TaskFilter[] = ['all', 'active', 'completed']
-
-export const USER_TASK_FILTERS: UserTaskFilter[] = ['all', 'active']
+import type { TaskFilterConfig } from '@/types'
 
 export const TASK_FILTER_CONFIGS: readonly TaskFilterConfig[] = [
   { value: 'all', label: 'Все', key: 'total' },
@@ -10,3 +6,4 @@ export const TASK_FILTER_CONFIGS: readonly TaskFilterConfig[] = [
   { value: 'completed', label: 'Завершенные', key: 'completed' },
 ] as const
 
+export const ALL = 'all';
