@@ -11,6 +11,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    TaskFilters: typeof import('./src/components/tasks/TaskFilters.vue')['default']
+    TaskForm: typeof import('./src/components/tasks/TaskForm.vue')['default']
+    TaskList: typeof import('./src/components/tasks/TaskList.vue')['default']
+    TaskStatsCard: typeof import('./src/components/tasks/TaskStatsCard.vue')['default']
   }
 }
