@@ -1,4 +1,4 @@
-import type { Task, UserTask, TaskStats } from '@/types'
+import type { Task, UserTask, TaskStats, TaskChangelogAction } from '@/types'
 
 export const calculateTaskStats = (tasks: Task[]): TaskStats => {
   const total = tasks.length
@@ -15,4 +15,24 @@ export const calculateCompletionRate = (tasks: UserTask[]): number => {
   if (!tasks.length) return 0
   const completed = tasks.reduce((sum, t) => sum + (t.completed ? 1 : 0), 0)
   return Math.round((completed / tasks.length) * 1000) / 10
+}
+
+export const truncateTaskTitle = (title: string, maxLength = 40): string => {
+  if (title.length <= maxLength) return title
+  return `${title.slice(0, maxLength - 1)}…`
+}
+
+export const getActionMeta = (action: TaskChangelogAction) => {
+  switch (action) {
+    case 'created':
+      return { color: 'primary', icon: 'mdi-plus-circle', label: 'Создана задача' }
+    case 'completed':
+      return { color: 'success', icon: 'mdi-check-circle', label: 'Завершена задача' }
+    case 'uncompleted':
+      return { color: 'warning', icon: 'mdi-undo', label: 'Возобновлена задача' }
+    case 'deleted':
+      return { color: 'error', icon: 'mdi-delete', label: 'Удалена задача' }
+    default:
+      return { color: 'grey', icon: 'mdi-information', label: 'Изменение задачи' }
+  }
 }

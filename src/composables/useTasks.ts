@@ -1,7 +1,20 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import type { Task, TaskFilter, DeletionTimer, TaskStats } from '@/types'
+import type {
+  Task,
+  TaskFilter,
+  DeletionTimer,
+  TaskStats,
+  TaskChangelogEntry,
+  TaskChangelogAction,
+} from '@/types'
 import { calculateTaskStats } from '@/helpers'
-import { INITIAL_TASKS } from '@/constants'
+import {
+  INITIAL_TASKS,
+  TASK_ACTION_CREATED,
+  TASK_ACTION_COMPLETED,
+  TASK_ACTION_UNCOMPLETED,
+  TASK_ACTION_DELETED,
+} from '@/constants'
 
 export const useTasks = () => {
   const tasks = ref<Task[]>([])
@@ -10,6 +23,7 @@ export const useTasks = () => {
 
   const pendingDeletions = ref<Set<number>>(new Set())
   const deletionTimers = ref<Record<number, DeletionTimer>>({})
+  const changelog = ref<TaskChangelogEntry[]>([])
 
   const filteredTasks = computed<Task[]>(() => {
     switch (currentFilter.value) {
@@ -23,6 +37,18 @@ export const useTasks = () => {
   })
 
   const taskStats = computed<TaskStats>(() => calculateTaskStats(tasks.value))
+
+  const addChangelogEntry = (task: Task, action: TaskChangelogAction) => {
+    const entry: TaskChangelogEntry = {
+      id: Date.now(),
+      taskId: task.id,
+      taskTitle: task.title,
+      action,
+      timestamp: new Date(),
+    }
+
+    changelog.value.unshift(entry)
+  }
 
   const loadTasks = async () => {
     await new Promise(resolve => setTimeout(resolve, 300))
@@ -44,6 +70,7 @@ export const useTasks = () => {
     }
 
     tasks.value.push(newTask)
+    addChangelogEntry(newTask, TASK_ACTION_CREATED)
     newTaskTitle.value = ''
   }
 
@@ -54,6 +81,11 @@ export const useTasks = () => {
     task.completed = !task.completed
     task.updatedAt = new Date()
     task.completedAt = task.completed ? new Date() : null
+
+    addChangelogEntry(
+      task,
+      task.completed ? TASK_ACTION_COMPLETED : TASK_ACTION_UNCOMPLETED,
+    )
   }
 
   const startDeletion = (id: number) => {
@@ -68,6 +100,10 @@ export const useTasks = () => {
       timer.timeLeft -= 1
 
       if (timer.timeLeft <= 0) {
+        const task = tasks.value.find(t => t.id === id)
+        if (task) {
+          addChangelogEntry(task, TASK_ACTION_DELETED)
+        }
         tasks.value = tasks.value.filter(t => t.id !== id)
         pendingDeletions.value.delete(id)
 
@@ -115,6 +151,7 @@ export const useTasks = () => {
     currentFilter,
     pendingDeletions,
     deletionTimers,
+    changelog,
 
     // derived
     filteredTasks,

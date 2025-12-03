@@ -37,4 +37,14 @@ export interface TaskFilterConfig {
   key: keyof TaskStats
 }
 
+export type TaskChangelogAction = 'created' | 'completed' | 'uncompleted' | 'deleted'
+
+export interface TaskChangelogEntry {
+  id: number
+  taskId: number
+  taskTitle: string
+  action: TaskChangelogAction
+  timestamp: Date
+}
+
 

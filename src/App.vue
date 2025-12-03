@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useTasks } from '@/composables'
-import { TaskFilters, TaskForm, TaskList, TaskStatsCard } from '@/components'
+import {
+  TaskFilters,
+  TaskForm,
+  TaskList,
+  TaskStatsCard,
+  TaskChangelog,
+} from '@/components'
 
 const {
   tasks,
@@ -15,6 +21,7 @@ const {
   toggleTask,
   startDeletion,
   cancelDeletion,
+  changelog,
 } = useTasks()
 
 const pendingDeletionIds = computed(() =>
@@ -68,6 +75,10 @@ const pendingDeletionIds = computed(() =>
                 </v-col>
               </v-row>
             </v-container>
+          </v-col>
+
+          <v-col cols="12" md="4">
+            <TaskChangelog :entries="changelog" />
           </v-col>
         </v-row>
       </v-container>

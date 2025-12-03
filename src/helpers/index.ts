@@ -1,5 +1,10 @@
 export { formatDate } from './dateHelpers'
-export { calculateTaskStats, calculateCompletionRate } from './taskHelpers'
+export {
+  calculateTaskStats,
+  calculateCompletionRate,
+  truncateTaskTitle,
+  getActionMeta,
+} from './taskHelpers'
 
 
 
