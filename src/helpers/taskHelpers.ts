@@ -1,4 +1,11 @@
 import type { Task, UserTask, TaskStats, TaskChangelogAction } from '@/types'
+import {
+  mdiPlusCircle,
+  mdiCheckCircle,
+  mdiUndo,
+  mdiDelete,
+  mdiInformation,
+} from '@mdi/js'
 
 export const calculateTaskStats = (tasks: Task[]): TaskStats => {
   const total = tasks.length
@@ -25,14 +32,14 @@ export const truncateTaskTitle = (title: string, maxLength = 40): string => {
 export const getActionMeta = (action: TaskChangelogAction) => {
   switch (action) {
     case 'created':
-      return { color: 'primary', icon: 'mdi-plus-circle', label: 'Создана задача' }
+      return { color: 'primary', icon: mdiPlusCircle, label: 'Создана задача' }
     case 'completed':
-      return { color: 'success', icon: 'mdi-check-circle', label: 'Завершена задача' }
+      return { color: 'success', icon: mdiCheckCircle, label: 'Завершена задача' }
     case 'uncompleted':
-      return { color: 'warning', icon: 'mdi-undo', label: 'Возобновлена задача' }
+      return { color: 'warning', icon: mdiUndo, label: 'Возобновлена задача' }
     case 'deleted':
-      return { color: 'error', icon: 'mdi-delete', label: 'Удалена задача' }
+      return { color: 'error', icon: mdiDelete, label: 'Удалена задача' }
     default:
-      return { color: 'grey', icon: 'mdi-information', label: 'Изменение задачи' }
+      return { color: 'grey', icon: mdiInformation, label: 'Изменение задачи' }
   }
 }

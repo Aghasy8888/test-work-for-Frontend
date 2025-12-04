@@ -31,11 +31,11 @@ const pendingDeletionIds = computed(() =>
 <template>
   <v-app>
     <v-app-bar color="white" density="compact">
-      <v-img
+      <img
         class="logo ml-12 mr-4"
         src="https://storage.yandexcloud.net/forlogo/logo.svg"
         alt="Логотип"
-        cover
+        fetchpriority="high"
       />
       <v-app-bar-title>Управление задачами</v-app-bar-title>
     </v-app-bar>

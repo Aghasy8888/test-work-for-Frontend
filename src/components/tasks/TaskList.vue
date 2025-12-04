@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Task, DeletionTimer } from '@/types'
 import { formatDate } from '@/helpers'
-
+import { mdiDelete } from '@mdi/js'
 interface Props {
   tasks: Task[]
   pendingDeletionIds: number[]
@@ -77,7 +77,7 @@ defineEmits<{
           size="small"
           :aria-label="`Удалить задачу ${task.title}`"
         >
-          <v-icon>mdi-delete</v-icon>
+          <v-icon :icon="mdiDelete" />
         </v-btn>
       </template>
     </v-list-item>
