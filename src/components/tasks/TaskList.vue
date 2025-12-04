@@ -28,10 +28,12 @@ defineEmits<{
           :model-value="task.completed"
           @update:model-value="$emit('toggle', task.id)"
           density="comfortable"
+          :aria-labelledby="`task-title-${task.id}`"
         />
       </template>
 
       <v-list-item-title
+        :id="`task-title-${task.id}`"
         :class="{
           'text-decoration-line-through text-grey': task.completed,
         }"
@@ -73,6 +75,7 @@ defineEmits<{
           variant="text"
           color="error"
           size="small"
+          :aria-label="`Удалить задачу ${task.title}`"
         >
           <v-icon>mdi-delete</v-icon>
         </v-btn>
