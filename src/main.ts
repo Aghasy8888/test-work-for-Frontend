@@ -13,8 +13,9 @@ import App from './App.vue'
 // Composables
 import { createApp } from 'vue'
 
-// Styles
-import 'unfonts.css'
+import '@fontsource/roboto/400.css' // Regular
+import '@fontsource/roboto/500.css' // Medium
+import '@fontsource/roboto/700.css' // Bold
 
 const app = createApp(App)
 

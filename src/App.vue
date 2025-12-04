@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
 import { useTasks } from '@/composables'
 import {
   TaskFilters,
   TaskForm,
   TaskList,
-  TaskStatsCard,
-  TaskChangelog,
 } from '@/components'
+
+const TaskStatsCard = defineAsyncComponent(
+  () => import('@/components/tasks/TaskStatsCard.vue')
+)
+const TaskChangelog = defineAsyncComponent(
+  () => import('@/components/tasks/TaskChangelog.vue')
+)
 
 const {
   newTaskTitle,

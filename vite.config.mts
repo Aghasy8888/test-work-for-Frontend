@@ -2,7 +2,6 @@
 import Components from 'unplugin-vue-components/vite'
 import Vue from '@vitejs/plugin-vue'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
-import Fonts from 'unplugin-fonts/vite'
 
 // Utilities
 import { defineConfig } from 'vite'
@@ -17,17 +16,6 @@ export default defineConfig({
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify(),
     Components(),
-    Fonts({
-      fontsource: {
-        families: [
-          {
-            name: 'Roboto',
-            weights: [400, 500, 700],
-            styles: ['normal'],
-          },
-        ],
-      },
-    }),
   ],
   optimizeDeps: {
     exclude: ['vuetify'],
@@ -49,5 +37,15 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vuetify: ['vuetify'],
+          vendor: ['vue', 'pinia'],
+        },
+      },
+    },
   },
 })
